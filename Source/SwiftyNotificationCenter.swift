@@ -11,14 +11,15 @@ import Foundation
 public typealias KeyboardNotificationHandler = (keyboardNotification: KeyboardNotification) -> Void
 
 public struct SwiftyNotificationCenter {
-    private static let sharedObserver = NotificationCenterObserver()
+    private static let sharedKeyboardObserver = KeyboardObserver()
     
     public static func addKeyboardWillShowObserver(handler: KeyboardNotificationHandler) {
-        sharedObserver.addKeyboardWillShowObserver(handler)
+        sharedKeyboardObserver.addKeyboardWillShowObserver(handler)
     }
     
-    class NotificationCenterObserver : NSObject {
-        private let notificationCenter = NSNotificationCenter.defaultCenter()
+    class KeyboardObserver : NSObject {
+        private let sharedCenter = NSNotificationCenter.defaultCenter()
+        
         private var keyboardWillShowHandler: KeyboardNotificationHandler?
         
         func addKeyboardWillShowObserver(handler: KeyboardNotificationHandler) {
@@ -31,7 +32,7 @@ public struct SwiftyNotificationCenter {
             else {
                 keyboardWillShowHandler = handler
             }
-            notificationCenter.addObserver(self, selector: "keyboardWillShowNotification:", name: UIKeyboardWillShowNotification, object: nil)
+            sharedCenter.addObserver(self, selector: "keyboardWillShowNotification:", name: UIKeyboardWillShowNotification, object: nil)
         }
         
         func keyboardWillShowNotification(notification: NSNotification) {
@@ -42,11 +43,17 @@ public struct SwiftyNotificationCenter {
     
 }
 
+extension SwiftyNotificationCenter {
+    static let otherShared = KeyboardObserver()
+    
+    
+}
+
 public struct KeyboardNotification {
-    let animationCurve: UIViewAnimationOptions
-    let animationDuration: NSTimeInterval
-    let frameBegin: CGRect
-    let frameEnd: CGRect
+    public let animationOptions: UIViewAnimationOptions
+    public let animationDuration: NSTimeInterval
+    public let frameBegin: CGRect
+    public let frameEnd: CGRect
     
     private let userInfo: [NSObject : AnyObject]
     
@@ -54,14 +61,14 @@ public struct KeyboardNotification {
         userInfo = notification.userInfo!
         
         let rawAnimationCurve = (userInfo[UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).unsignedIntegerValue
-        animationCurve = UIViewAnimationOptions(rawValue: rawAnimationCurve)
+        animationOptions = UIViewAnimationOptions(rawValue: rawAnimationCurve)
         animationDuration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
         frameBegin = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).CGRectValue()
         frameEnd = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
     }
     
     @available(iOS 9.0, *)
-    var isLocal: Bool {
+    public var isLocal: Bool {
         return (userInfo[UIKeyboardIsLocalUserInfoKey] as! NSNumber).boolValue
     }
 }
