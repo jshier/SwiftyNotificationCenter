@@ -34,12 +34,6 @@ class KeyboardObserver : NSObject {
     private let lock = Lock()
     private let sharedCenter = NSNotificationCenter.defaultCenter()
     
-    private var keyboardWillShowObserverHandlers: [Int : KeyboardNotificationHandler] = [:]
-    private var isObservingKeyboardWillShow = false
-    
-    private var keyboardDidShowObserverHandlers: [Int : KeyboardNotificationHandler] = [:]
-    private var isObservingKeyboardDidShow = false
-    
     private var observerHandlers: [String : [Int : KeyboardNotificationHandler]] = [:]
     private var isObserving: [String : Bool] = [:]
     
