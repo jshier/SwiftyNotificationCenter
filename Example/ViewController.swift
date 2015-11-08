@@ -9,24 +9,22 @@
 import SwiftyNotificationCenter
 import UIKit
 
-class ViewController: UIViewController, KeyboardObserver {
+class ViewController: UIViewController {
     override func viewDidLoad() {
-        startObservingKeyboard()
+        SwiftyNotificationCenter.addKeyboardWillShowObserver(self, handler: keyboardWillShowHandler)
+        SNC.addKeyboardDidShowObserver(self, handler: keyboardDidShowHandler)
     }
     
-    let keyboardWillShow: KeyboardNotificationHandler = { keyboardNotification in
+    func keyboardWillShowHandler(keyboardNotification: KeyboardNotification) {
         print(keyboardNotification)
-        print(keyboardNotification.animationOptions)
+        print("*** Removing willShow observer. ***")
+        SwiftyNotificationCenter.removeKeyboardWillShowObserver(self)
     }
-}
-
-protocol KeyboardObserver {
-    var keyboardWillShow: KeyboardNotificationHandler { get }
-}
-
-extension KeyboardObserver {
-    func startObservingKeyboard() {
-        SwiftyNotificationCenter.addKeyboardWillShowObserver(keyboardWillShow)
+    
+    func keyboardDidShowHandler(keyboardNotification: KeyboardNotification) {
+        print(keyboardNotification)
+        print("*** Removing didShow observer. ***")
+        SwiftyNotificationCenter.removeKeyboardDidShowObserver(self)
     }
 }
 
