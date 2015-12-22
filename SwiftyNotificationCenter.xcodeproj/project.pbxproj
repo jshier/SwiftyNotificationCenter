@@ -13,6 +13,7 @@
 		31D923A81BE5688E0034D302 /* SwiftyNotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31D9239D1BE5688E0034D302 /* SwiftyNotificationCenter.framework */; };
 		31D923AD1BE5688E0034D302 /* SwiftyNotificationCenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D923AC1BE5688E0034D302 /* SwiftyNotificationCenterTests.swift */; };
 		31D923D71BE56C4C0034D302 /* SwiftyNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D923D61BE56C4C0034D302 /* SwiftyNotificationCenter.swift */; };
+		31E21EAC1C06CCEE0014028F /* NotificationObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E21EAB1C06CCEE0014028F /* NotificationObserver.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +36,7 @@
 		31D923AC1BE5688E0034D302 /* SwiftyNotificationCenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftyNotificationCenterTests.swift; sourceTree = "<group>"; };
 		31D923AE1BE5688E0034D302 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		31D923D61BE56C4C0034D302 /* SwiftyNotificationCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyNotificationCenter.swift; sourceTree = "<group>"; };
+		31E21EAB1C06CCEE0014028F /* NotificationObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationObserver.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 				31D923D61BE56C4C0034D302 /* SwiftyNotificationCenter.swift */,
 				31227C541BEF094D005AB83D /* KeyboardObserver.swift */,
 				31227C561BEF09A0005AB83D /* Lock.swift */,
+				31E21EAB1C06CCEE0014028F /* NotificationObserver.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -203,6 +206,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31E21EAC1C06CCEE0014028F /* NotificationObserver.swift in Sources */,
 				31227C551BEF094D005AB83D /* KeyboardObserver.swift in Sources */,
 				31227C571BEF09A0005AB83D /* Lock.swift in Sources */,
 				31D923D71BE56C4C0034D302 /* SwiftyNotificationCenter.swift in Sources */,

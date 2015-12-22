@@ -11,20 +11,53 @@ import UIKit
 
 class ViewController: UIViewController {
     override func viewDidLoad() {
-        SwiftyNotificationCenter.addKeyboardWillShowObserver(self, handler: keyboardWillShowHandler)
+        SNC.addKeyboardWillShowObserver(self, handler: keyboardWillShowHandler)
         SNC.addKeyboardDidShowObserver(self, handler: keyboardDidShowHandler)
+        SNC.addKeyboardWillHideObserver(self, handler: keyboardWillHideHandler)
+        SNC.addKeyboardDidHideObserver(self, handler: keyboardDidHideHandler)
+        SNC.addKeyboardWillChangeFrameObserver(self, handler: keyboardWillChangeFrameHandler)
+        SNC.addKeyboardDidChangeFrameObserver(self, handler: keyboardDidChangeFrameHandler)
+    }
+    
+    @IBAction func endEditing(sender: UIButton) {
+        SNC.removeKeyboardObserver(self)
+        view.endEditing(true)
     }
     
     func keyboardWillShowHandler(keyboardNotification: KeyboardNotification) {
         print(keyboardNotification)
-        print("*** Removing willShow observer. ***")
-        SwiftyNotificationCenter.removeKeyboardWillShowObserver(self)
+//        print("*** Removing willShow observer. ***")
+//        SNC.removeKeyboardWillShowObserver(self)
     }
     
     func keyboardDidShowHandler(keyboardNotification: KeyboardNotification) {
         print(keyboardNotification)
-        print("*** Removing didShow observer. ***")
-        SwiftyNotificationCenter.removeKeyboardDidShowObserver(self)
+//        print("*** Removing didShow observer. ***")
+//        SNC.removeKeyboardDidShowObserver(self)
+    }
+    
+    func keyboardWillHideHandler(keyboardNotification: KeyboardNotification) {
+        print(keyboardNotification)
+//        print("*** Removing willHide observer. ***")
+//        SNC.removeKeyboardWillHideObserver(self)
+    }
+    
+    func keyboardDidHideHandler(keyboardNotification: KeyboardNotification) {
+        print(keyboardNotification)
+//        print("*** Removing didHide observer. ***")
+//        SNC.removeKeyboardDidHideObserver(self)
+    }
+    
+    func keyboardWillChangeFrameHandler(keyboardNotification: KeyboardNotification) {
+        print(keyboardNotification)
+//        print("*** Removing willChangeFrame observer. ***")
+//        SNC.removeKeyboardWillChangeFrameObserver(self)
+    }
+    
+    func keyboardDidChangeFrameHandler(keyboardNotification: KeyboardNotification) {
+        print(keyboardNotification)
+//        print("*** Removing didChangeFrame observer. ***")
+//        SNC.removeKeyboardDidChangeFrameObserver(self)
     }
 }
 

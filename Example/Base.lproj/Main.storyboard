@@ -24,11 +24,21 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sp9-Xd-Aj3">
+                                <rect key="frame" x="502" y="58" width="78" height="30"/>
+                                <animations/>
+                                <state key="normal" title="End Editing"/>
+                                <connections>
+                                    <action selector="endEditing:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zmE-2O-npg"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="sp9-Xd-Aj3" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="6th-BW-KDL"/>
                             <constraint firstItem="InL-Wu-8fs" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="DxG-z3-lEE"/>
+                            <constraint firstItem="sp9-Xd-Aj3" firstAttribute="top" secondItem="InL-Wu-8fs" secondAttribute="bottom" constant="8" id="GDt-ip-ZVM"/>
                             <constraint firstItem="InL-Wu-8fs" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="KjB-OW-OkD"/>
                             <constraint firstItem="InL-Wu-8fs" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="cTa-Gs-zI4"/>
                         </constraints>
