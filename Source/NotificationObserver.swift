@@ -12,64 +12,81 @@ protocol Notification {
     init(notification: NSNotification)
 }
 
-typealias NotificationHandler = (notification: Notification) -> Void
-
-class NotificationObserver {
+class NotificationObserver<NotificationType: Notification> {
+    typealias Handler = (notification: NotificationType) -> Void
+    
     private let lock = Lock()
     private let center = NSNotificationCenter.defaultCenter()
     
-    private var notificationHandlers: [String : [Int : NotificationHandler]] = [:]
-    private var isObserving: [String : Bool] = [:]
+    private var notificationHandlers: [String : [NotificationHandler<NotificationType>]] = [:]
+    private var isSubscribedTo: [String : Bool] = [:]
     
     private let notificationSelector = Selector("handleNotification:")
     
-    func addObserver<O : Hashable>(observer: O, withKey key: String, handler: NotificationHandler) {
+    func addObserver(observer: AnyObject, withKey key: String, handler: Handler) {
         lock.around {
             if var observers = notificationHandlers[key] {
-                observers[observer.hashValue] = handler
+                observers = observers.filter { $0.observer != nil }
+                if let index = observers.indexOf({ $0.observer === observer }) {
+                    observers[index] = NotificationHandler<NotificationType>(observer: observer, handler: handler)
+                }
+                else {
+                    observers.append(NotificationHandler<NotificationType>(observer: observer, handler: handler))
+                }
                 notificationHandlers[key] = observers
             }
             else {
-                notificationHandlers[key] = [observer.hashValue : handler]
+                notificationHandlers[key] = [NotificationHandler<NotificationType>(observer: observer, handler: handler)]
             }
             
-            if !(isObserving[key] ?? false) {
+            if let isSubscribed = isSubscribedTo[key] {
+                if !isSubscribed {
+                    center.addObserver(self, selector: notificationSelector, name: key, object: nil)
+                    isSubscribedTo[key] = true
+                }
+            }
+            else {
                 center.addObserver(self, selector: notificationSelector, name: key, object: nil)
-                isObserving[key] = true
+                isSubscribedTo[key] = true
             }
         }
     }
     
-    func removeObserver<O : Hashable>(observer: O, forKey key: String) {
+    func removeObserver(observer: AnyObject, forKey key: String) {
+        guard var observers = notificationHandlers[key] else { return }
+        
         lock.around {
-            notificationHandlers[key]?.removeValueForKey(observer.hashValue)
+            observers = observers.filter { $0.observer != nil }
+            if let index = observers.indexOf({ $0.observer === observer }) {
+                observers.removeAtIndex(index)
+            }
             
-            if notificationHandlers[key]?.values.count == 0 {
+            if observers.count == 0 {
+                isSubscribedTo[key] = false
                 center.removeObserver(self, name: key, object: nil)
-                isObserving[key] = false
             }
         }
     }
     
-    func removeObserver<O : Hashable>(observer: O) {
-        lock.around {
-            notificationHandlers.keys.forEach { notificationHandlers[$0]!.removeValueForKey(observer.hashValue) }
-        }
+    func removeObserver(observer: AnyObject) {
+        notificationHandlers.keys.forEach { removeObserver(observer, forKey: $0) }
     }
     
-    func convertHandler<T : Notification>(handler: T -> Void) -> NotificationHandler {
-        return { notification in
-            if let typedNotification = notification as? T {
-                handler(typedNotification)
-            }
-        }
-    }
-    
-    func notifyObservers(ofName name: String, withNotification notification: Notification) {
-        notificationHandlers[name]?.values.forEach { $0(notification: notification) }
+    func notifyObservers(ofKey key: String, withNotification notification: Notification) {
+        guard var observers = notificationHandlers[key] else { return }
+        observers = observers.filter { $0.observer != nil }
+        observers.forEach { $0.handler(notification: notification as! NotificationType) }
+        notificationHandlers[key] = observers
     }
     
     @objc func handleNotification(notification: NSNotification) {
         fatalError("NotificationObserver subclasses must override handleNotification(notification: NSNotification)")
     }
+}
+
+struct NotificationHandler<NotificationType: Notification> {
+    typealias Handler = (notification: NotificationType) -> Void
+    
+    weak var observer: AnyObject?
+    let handler: Handler
 }

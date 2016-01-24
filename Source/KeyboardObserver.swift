@@ -11,118 +11,118 @@ import Foundation
 extension SwiftyNotificationCenter {
     private static let sharedKeyboardObserver = KeyboardObserver()
     
-    public static func addKeyboardWillShowObserver<O : Hashable>(observer: O, handler: KeyboardNotificationHandler) {
+    public static func addKeyboardWillShowObserver(observer: AnyObject, handler: KeyboardNotificationHandler) {
         sharedKeyboardObserver.addKeyboardWillShowObserver(observer, handler: handler)
     }
     
-    public static func removeKeyboardWillShowObserver<O : Hashable>(observer: O) {
+    public static func removeKeyboardWillShowObserver(observer: AnyObject) {
         sharedKeyboardObserver.removeKeyboardWillShowObserver(observer)
     }
     
-    public static func addKeyboardDidShowObserver<O : Hashable>(observer: O, handler: KeyboardNotificationHandler) {
+    public static func addKeyboardDidShowObserver(observer: AnyObject, handler: KeyboardNotificationHandler) {
         sharedKeyboardObserver.addKeyboardDidShowObserver(observer, handler: handler)
     }
     
-    public static func removeKeyboardDidShowObserver<O : Hashable>(observer: O) {
+    public static func removeKeyboardDidShowObserver(observer: AnyObject) {
         sharedKeyboardObserver.removeKeyboardDidShowObserver(observer)
     }
     
-    public static func addKeyboardWillHideObserver<O : Hashable>(observer: O, handler: KeyboardNotificationHandler) {
+    public static func addKeyboardWillHideObserver(observer: AnyObject, handler: KeyboardNotificationHandler) {
         sharedKeyboardObserver.addKeyboardWillHideObserver(observer, handler: handler)
     }
     
-    public static func removeKeyboardWillHideObserver<O : Hashable>(observer: O) {
+    public static func removeKeyboardWillHideObserver(observer: AnyObject) {
         sharedKeyboardObserver.removeKeyboardWillHideObserver(observer)
     }
     
-    public static func addKeyboardDidHideObserver<O : Hashable>(observer: O, handler: KeyboardNotificationHandler) {
+    public static func addKeyboardDidHideObserver(observer: AnyObject, handler: KeyboardNotificationHandler) {
         sharedKeyboardObserver.addKeyboardDidHideObserver(observer, handler: handler)
     }
     
-    public static func removeKeyboardDidHideObserver<O : Hashable>(observer: O) {
+    public static func removeKeyboardDidHideObserver(observer: AnyObject) {
         sharedKeyboardObserver.removeKeyboardDidHideObserver(observer)
     }
     
-    public static func addKeyboardWillChangeFrameObserver<O : Hashable>(observer: O, handler: KeyboardNotificationHandler) {
+    public static func addKeyboardWillChangeFrameObserver(observer: AnyObject, handler: KeyboardNotificationHandler) {
         sharedKeyboardObserver.addKeyboardWillChangeFrameObserver(observer, handler: handler)
     }
     
-    public static func removeKeyboardWillChangeFrameObserver<O : Hashable>(observer: O) {
+    public static func removeKeyboardWillChangeFrameObserver(observer: AnyObject) {
         sharedKeyboardObserver.removeKeyboardWillChangeFrameObserver(observer)
     }
     
-    public static func addKeyboardDidChangeFrameObserver<O : Hashable>(observer: O, handler: KeyboardNotificationHandler) {
+    public static func addKeyboardDidChangeFrameObserver(observer: AnyObject, handler: KeyboardNotificationHandler) {
         sharedKeyboardObserver.addKeyboardDidChangeFrameObserver(observer, handler: handler)
     }
     
-    public static func removeKeyboardDidChangeFrameObserver<O : Hashable>(observer: O) {
+    public static func removeKeyboardDidChangeFrameObserver(observer: AnyObject) {
         sharedKeyboardObserver.removeKeyboardDidChangeFrameObserver(observer)
     }
     
-    public static func removeKeyboardObserver<O : Hashable>(observer: O) {
+    public static func removeKeyboardObserver(observer: AnyObject) {
         sharedKeyboardObserver.removeKeyboardObserver(observer)
     }
 }
 
 public typealias KeyboardNotificationHandler = (notification: KeyboardNotification) -> Void
 
-class KeyboardObserver : NotificationObserver {
+class KeyboardObserver : NotificationObserver<KeyboardNotification> {
     
-    func addKeyboardWillShowObserver<O : Hashable>(observer: O, handler: KeyboardNotificationHandler) {
-        addObserver(observer, withKey: UIKeyboardWillShowNotification, handler: convertHandler(handler))
+    func addKeyboardWillShowObserver(observer: AnyObject, handler: KeyboardNotificationHandler) {
+        addObserver(observer, withKey: UIKeyboardWillShowNotification, handler: handler)
     }
     
-    func addKeyboardDidShowObserver<O : Hashable>(observer: O, handler: KeyboardNotificationHandler) {
-        addObserver(observer, withKey: UIKeyboardDidShowNotification, handler: convertHandler(handler))
+    func addKeyboardDidShowObserver(observer: AnyObject, handler: KeyboardNotificationHandler) {
+        addObserver(observer, withKey: UIKeyboardDidShowNotification, handler: handler)
     }
     
-    func addKeyboardWillHideObserver<O : Hashable>(observer: O, handler: KeyboardNotificationHandler) {
-        addObserver(observer, withKey: UIKeyboardWillHideNotification, handler: convertHandler(handler))
+    func addKeyboardWillHideObserver(observer: AnyObject, handler: KeyboardNotificationHandler) {
+        addObserver(observer, withKey: UIKeyboardWillHideNotification, handler: handler)
     }
     
-    func addKeyboardDidHideObserver<O : Hashable>(observer: O, handler: KeyboardNotificationHandler) {
-        addObserver(observer, withKey: UIKeyboardDidHideNotification, handler: convertHandler(handler))
+    func addKeyboardDidHideObserver(observer: AnyObject, handler: KeyboardNotificationHandler) {
+        addObserver(observer, withKey: UIKeyboardDidHideNotification, handler: handler)
     }
     
-    func addKeyboardWillChangeFrameObserver<O : Hashable>(observer: O, handler: KeyboardNotificationHandler) {
-        addObserver(observer, withKey: UIKeyboardWillChangeFrameNotification, handler: convertHandler(handler))
+    func addKeyboardWillChangeFrameObserver(observer: AnyObject, handler: KeyboardNotificationHandler) {
+        addObserver(observer, withKey: UIKeyboardWillChangeFrameNotification, handler: handler)
     }
     
-    func addKeyboardDidChangeFrameObserver<O : Hashable>(observer: O, handler: KeyboardNotificationHandler) {
-        addObserver(observer, withKey: UIKeyboardDidChangeFrameNotification, handler: convertHandler(handler))
+    func addKeyboardDidChangeFrameObserver(observer: AnyObject, handler: KeyboardNotificationHandler) {
+        addObserver(observer, withKey: UIKeyboardDidChangeFrameNotification, handler: handler)
     }
     
-    func removeKeyboardWillShowObserver<O : Hashable>(observer: O) {
+    func removeKeyboardWillShowObserver(observer: AnyObject) {
         removeObserver(observer, forKey: UIKeyboardWillShowNotification)
     }
     
-    func removeKeyboardDidShowObserver<O : Hashable>(observer: O) {
+    func removeKeyboardDidShowObserver(observer: AnyObject) {
         removeObserver(observer, forKey: UIKeyboardDidShowNotification)
     }
     
-    func removeKeyboardWillHideObserver<O : Hashable>(observer: O) {
+    func removeKeyboardWillHideObserver(observer: AnyObject) {
         removeObserver(observer, forKey: UIKeyboardWillHideNotification)
     }
     
-    func removeKeyboardDidHideObserver<O : Hashable>(observer: O) {
+    func removeKeyboardDidHideObserver(observer: AnyObject) {
         removeObserver(observer, forKey: UIKeyboardDidHideNotification)
     }
     
-    func removeKeyboardWillChangeFrameObserver<O : Hashable>(observer: O) {
+    func removeKeyboardWillChangeFrameObserver(observer: AnyObject) {
         removeObserver(observer, forKey: UIKeyboardWillChangeFrameNotification)
     }
     
-    func removeKeyboardDidChangeFrameObserver<O : Hashable>(observer: O) {
+    func removeKeyboardDidChangeFrameObserver(observer: AnyObject) {
         removeObserver(observer, forKey: UIKeyboardDidChangeFrameNotification)
     }
     
-    func removeKeyboardObserver<O : Hashable>(observer: O) {
+    func removeKeyboardObserver(observer: AnyObject) {
         removeObserver(observer)
     }
     
     @objc override func handleNotification(notification: NSNotification) {
         let keyboardNotification = KeyboardNotification(notification: notification)
-        notifyObservers(ofName: notification.name, withNotification: keyboardNotification)
+        notifyObservers(ofKey: notification.name, withNotification: keyboardNotification)
     }
 }
 
