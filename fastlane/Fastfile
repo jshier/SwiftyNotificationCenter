@@ -6,7 +6,7 @@ lane :test do
   scheme: "SwiftyNotificationCenter",
   clean: true,
   configuration: "Debug",
-  device: "iPhone 6s (9.3)",
+  destination: "platform=iOS Simulator,name=iPhone 6s,OS=9.3",
   skip_build: true
   )
 end
