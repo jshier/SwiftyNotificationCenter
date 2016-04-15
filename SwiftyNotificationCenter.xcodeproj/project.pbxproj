@@ -361,7 +361,7 @@
 		31D923B51BE5688E0034D302 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = SwiftyNotificationCenterTests/Info.plist;
+				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jonshier.SwiftyNotificationCenterTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -371,7 +371,7 @@
 		31D923B61BE5688E0034D302 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = SwiftyNotificationCenterTests/Info.plist;
+				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jonshier.SwiftyNotificationCenterTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";

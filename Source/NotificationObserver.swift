@@ -21,7 +21,7 @@ class NotificationObserver<NotificationType: Notification> {
     private var notificationHandlers: [String : [NotificationHandler<NotificationType>]] = [:]
     private var isSubscribedTo: [String : Bool] = [:]
     
-    private let notificationSelector = Selector("handleNotification:")
+    private let notificationSelector = #selector(NotificationObserver<NotificationType>.handleNotification(_:))
     
     func addObserver(observer: AnyObject, withKey key: String, handler: Handler) {
         lock.around {
@@ -74,9 +74,16 @@ class NotificationObserver<NotificationType: Notification> {
     
     func notifyObservers(ofKey key: String, withNotification notification: Notification) {
         guard var observers = notificationHandlers[key] else { return }
-        observers = observers.filter { $0.observer != nil }
+        
+        lock.around {
+            observers = observers.filter { $0.observer != nil }
+        }
+        
         observers.forEach { $0.handler(notification: notification as! NotificationType) }
-        notificationHandlers[key] = observers
+        
+        lock.around {
+            notificationHandlers[key] = observers
+        }
     }
     
     @objc func handleNotification(notification: NSNotification) {
