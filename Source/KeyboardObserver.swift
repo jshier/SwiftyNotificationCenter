@@ -131,6 +131,7 @@ public struct KeyboardNotification : Notification {
     public let animationDuration: NSTimeInterval
     public let frameBegin: CGRect
     public let frameEnd: CGRect
+    public let isLocal: Bool
     
     private let userInfo: [NSObject : AnyObject]
     
@@ -142,10 +143,6 @@ public struct KeyboardNotification : Notification {
         animationDuration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
         frameBegin = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).CGRectValue()
         frameEnd = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
-    }
-    
-    @available(iOS 9.0, *)
-    public var isLocal: Bool {
-        return (userInfo[UIKeyboardIsLocalUserInfoKey] as! NSNumber).boolValue
+        isLocal = (userInfo[UIKeyboardIsLocalUserInfoKey] as! NSNumber).boolValue
     }
 }

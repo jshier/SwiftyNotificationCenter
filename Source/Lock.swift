@@ -8,19 +8,22 @@
 
 import Darwin
 
-class Lock {
-    private var lock = OS_SPINLOCK_INIT
+final class Lock {
     
-    func around(@noescape closure: () -> ()) {
-        OSSpinLockLock(&lock)
-        closure()
-        OSSpinLockUnlock(&lock)
+    private var queue: dispatch_queue_t
+    
+    init(label: String = String(format: "com.jonshier.SwiftyNotificationCenter.LockQueue.%08x%08x", arc4random(), arc4random())) {
+        queue = dispatch_queue_create(label, DISPATCH_QUEUE_SERIAL)
     }
     
-    func around<T>(@noescape closure: () -> T) -> T {
-        OSSpinLockLock(&lock)
-        let value = closure()
-        OSSpinLockUnlock(&lock)
-        return value
+    func around(closure: () -> Void) {
+        dispatch_sync(queue, closure)
     }
+    
+    func around<T>(closure: () -> T) -> T {
+        var out: T?
+        dispatch_sync(queue) { out = closure() }
+        return out!
+    }
+    
 }

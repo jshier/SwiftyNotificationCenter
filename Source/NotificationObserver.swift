@@ -25,7 +25,7 @@ class NotificationObserver<NotificationType: Notification> {
     
     func addObserver(observer: AnyObject, withKey key: String, handler: Handler) {
         lock.around {
-            if var observers = notificationHandlers[key] {
+            if var observers = self.notificationHandlers[key] {
                 observers = observers.filter { $0.observer != nil }
                 if let index = observers.indexOf({ $0.observer === observer }) {
                     observers[index] = NotificationHandler<NotificationType>(observer: observer, handler: handler)
@@ -33,21 +33,21 @@ class NotificationObserver<NotificationType: Notification> {
                 else {
                     observers.append(NotificationHandler<NotificationType>(observer: observer, handler: handler))
                 }
-                notificationHandlers[key] = observers
+                self.notificationHandlers[key] = observers
             }
             else {
-                notificationHandlers[key] = [NotificationHandler<NotificationType>(observer: observer, handler: handler)]
+                self.notificationHandlers[key] = [NotificationHandler<NotificationType>(observer: observer, handler: handler)]
             }
             
-            if let isSubscribed = isSubscribedTo[key] {
+            if let isSubscribed = self.isSubscribedTo[key] {
                 if !isSubscribed {
-                    center.addObserver(self, selector: notificationSelector, name: key, object: nil)
-                    isSubscribedTo[key] = true
+                    self.center.addObserver(self, selector: self.notificationSelector, name: key, object: nil)
+                    self.isSubscribedTo[key] = true
                 }
             }
             else {
-                center.addObserver(self, selector: notificationSelector, name: key, object: nil)
-                isSubscribedTo[key] = true
+                self.center.addObserver(self, selector: self.notificationSelector, name: key, object: nil)
+                self.isSubscribedTo[key] = true
             }
         }
     }
@@ -62,8 +62,8 @@ class NotificationObserver<NotificationType: Notification> {
             }
             
             if observers.count == 0 {
-                isSubscribedTo[key] = false
-                center.removeObserver(self, name: key, object: nil)
+                self.isSubscribedTo[key] = false
+                self.center.removeObserver(self, name: key, object: nil)
             }
         }
     }
@@ -82,7 +82,7 @@ class NotificationObserver<NotificationType: Notification> {
         observers.forEach { $0.handler(notification: notification as! NotificationType) }
         
         lock.around {
-            notificationHandlers[key] = observers
+            self.notificationHandlers[key] = observers
         }
     }
     
