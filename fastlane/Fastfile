@@ -1,12 +1,16 @@
 fastlane_version "1.81.0"
 
-lane :test do
-  scan(
-  project: "SwiftyNotificationCenter.xcodeproj",
-  scheme: "SwiftyNotificationCenter",
-  clean: true,
-  configuration: "Debug",
-  device: "iPhone 6s (9.2)",
-  skip_build: true
-  )
+default_platform :ios
+
+platform :ios do
+  lane :test do
+    scan(
+    project: "SwiftyNotificationCenter.xcodeproj",
+    scheme: "SwiftyNotificationCenter",
+    clean: true,
+    configuration: "Debug",
+    device: "iPhone 6s (9.2)",
+    skip_build: true
+    )
+  end
 end
