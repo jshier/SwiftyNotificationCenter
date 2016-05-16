@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="U6l-gl-RMi">
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--First-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="SwiftyNotificationCenterExample" customModuleProvider="target" sceneMemberID="viewController">
@@ -18,35 +17,77 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="InL-Wu-8fs">
-                                <rect key="frame" x="20" y="20" width="560" height="30"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sp9-Xd-Aj3">
-                                <rect key="frame" x="502" y="58" width="78" height="30"/>
-                                <animations/>
+                                <rect key="frame" x="502" y="110" width="78" height="30"/>
                                 <state key="normal" title="End Editing"/>
                                 <connections>
                                     <action selector="endEditing:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zmE-2O-npg"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eXO-nX-KFE">
+                                <rect key="frame" x="284" y="285" width="32" height="30"/>
+                                <state key="normal" title="Next"/>
+                                <connections>
+                                    <segue destination="qVx-i1-ADO" kind="show" id="T0J-tR-dmr"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="InL-Wu-8fs">
+                                <rect key="frame" x="20" y="72" width="560" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
-                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="sp9-Xd-Aj3" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="6th-BW-KDL"/>
                             <constraint firstItem="InL-Wu-8fs" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="DxG-z3-lEE"/>
                             <constraint firstItem="sp9-Xd-Aj3" firstAttribute="top" secondItem="InL-Wu-8fs" secondAttribute="bottom" constant="8" id="GDt-ip-ZVM"/>
                             <constraint firstItem="InL-Wu-8fs" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="KjB-OW-OkD"/>
-                            <constraint firstItem="InL-Wu-8fs" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="cTa-Gs-zI4"/>
+                            <constraint firstItem="eXO-nX-KFE" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="UEk-IJ-Nz0"/>
+                            <constraint firstItem="eXO-nX-KFE" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="bM7-YE-ByB"/>
+                            <constraint firstItem="InL-Wu-8fs" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" symbolic="YES" id="cTa-Gs-zI4"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="First" id="3Ei-N0-GH0"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="885" y="619"/>
+        </scene>
+        <!--Second-->
+        <scene sceneID="Snf-xj-c1S">
+            <objects>
+                <viewController id="qVx-i1-ADO" customClass="SecondViewController" customModule="SwiftyNotificationCenterExample" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="sOC-Zd-nQR"/>
+                        <viewControllerLayoutGuide type="bottom" id="tCx-Ua-PZx"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="XPd-Re-073">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Second" id="NRI-HI-D2q"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RuA-CA-qqo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1533" y="619"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="JIW-I0-2c1">
+            <objects>
+                <navigationController id="U6l-gl-RMi" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="zQl-LB-GcC">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="vsg-mE-LAj"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3a0-Er-rQf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="230" y="619"/>
         </scene>
     </scenes>
 </document>

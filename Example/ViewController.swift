@@ -10,13 +10,22 @@ import SwiftyNotificationCenter
 import UIKit
 
 class ViewController: UIViewController {
+    
     override func viewDidLoad() {
-        SNC.addKeyboardWillShowObserver(self, handler: keyboardWillShowHandler)
-        SNC.addKeyboardDidShowObserver(self, handler: keyboardDidShowHandler)
-        SNC.addKeyboardWillHideObserver(self, handler: keyboardWillHideHandler)
-        SNC.addKeyboardDidHideObserver(self, handler: keyboardDidHideHandler)
-        SNC.addKeyboardWillChangeFrameObserver(self, handler: keyboardWillChangeFrameHandler)
-        SNC.addKeyboardDidChangeFrameObserver(self, handler: keyboardDidChangeFrameHandler)
+//        SNC.addKeyboardWillShowObserver(self, handler: keyboardWillShowHandler)
+//        SNC.addKeyboardDidShowObserver(self, handler: keyboardDidShowHandler)
+//        SNC.addKeyboardWillHideObserver(self, handler: keyboardWillHideHandler)
+//        SNC.addKeyboardDidHideObserver(self, handler: keyboardDidHideHandler)
+//        SNC.addKeyboardWillChangeFrameObserver(self, handler: keyboardWillChangeFrameHandler)
+//        SNC.addKeyboardDidChangeFrameObserver(self, handler: keyboardDidChangeFrameHandler)
+//        keyboardDidShowNotification.onNotification { 
+//            print("Received onNotification")
+//        }
+//        .withNotification { (notification: KeyboardNotification) in
+//            print("Received specific notification: \(notification)")
+//        }
+//        .withNotification(keyboardDidShowHandler)
+        observeKeyboardDidShowNotification()
     }
     
     @IBAction func endEditing(sender: UIButton) {
@@ -58,6 +67,12 @@ class ViewController: UIViewController {
         print(keyboardNotification)
 //        print("*** Removing didChangeFrame observer. ***")
 //        SNC.removeKeyboardDidChangeFrameObserver(self)
+    }
+}
+
+extension ViewController: KeyboardDidShowObserving {
+    func keyboardDidShow(notification: KeyboardNotification) {
+        print(notification)
     }
 }
 

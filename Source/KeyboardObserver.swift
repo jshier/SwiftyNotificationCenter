@@ -126,7 +126,7 @@ class KeyboardObserver : NotificationObserver<KeyboardNotification> {
     }
 }
 
-public struct KeyboardNotification : Notification {
+public struct KeyboardNotification : Notification, NotificationConvertible {
     public let animationOptions: UIViewAnimationOptions
     public let animationDuration: NSTimeInterval
     public let frameBegin: CGRect
@@ -135,7 +135,7 @@ public struct KeyboardNotification : Notification {
     
     private let userInfo: [NSObject : AnyObject]
     
-    init(notification: NSNotification) {
+    public init(notification: NSNotification) {
         userInfo = notification.userInfo!
         
         let rawAnimationCurve = (userInfo[UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).unsignedIntegerValue
