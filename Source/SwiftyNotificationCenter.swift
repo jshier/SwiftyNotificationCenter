@@ -8,6 +8,10 @@
 
 public typealias SNC = SwiftyNotificationCenter
 
+public protocol Notification {
+    init(notification: NSNotification)
+}
+
 public class SwiftyNotificationCenter {
     private static let notificationCenter = NSNotificationCenter.defaultCenter()
     private static let sharedManager = ObservatoryManager()
@@ -67,7 +71,7 @@ public class ObservatoryManager {
     @objc func handleNotification(notification: NSNotification) {
         guard let notificationObservatories = observatories[notification.name] else { fatalError("Attempted to handle a notification with no observatories.") }
         
-        let observatoriesWithObservers = notificationObservatories.filter({ $0.observer != nil })
+        let observatoriesWithObservers = notificationObservatories.filter { $0.observer != nil }
         
         guard observatoriesWithObservers.count > 0 else {
             observatories[notification.name] = nil
