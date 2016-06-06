@@ -29,7 +29,6 @@ class ViewController: UIViewController {
     }
     
     @IBAction func endEditing(sender: UIButton) {
-        SNC.removeKeyboardObserver(self)
         view.endEditing(true)
     }
     
